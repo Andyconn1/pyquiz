@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <title>Andy's quiz</title>
 </head>
 <body>
@@ -19,5 +20,12 @@
             <input type=submit value=Submit>
         </form>
     </div>
+    <div class="scores">
+        <div class="chart" id='plotly-scores'></div>
+    </div>
+    <script type="text/javascript">
+        var scores = {{ data.plotly_scores | safe }};
+        Plotly.plot("plotly-scores", scores, {});
+    </script>
 </body>
 </html>

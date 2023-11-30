@@ -2,6 +2,10 @@ from flask import Flask, render_template, request, redirect
 from pyquiz.game import mechanics
 from pyquiz.data.setup_db import get_database_connection
 from pyquiz.main import rebuild
+import pandas as pd
+import plotly.express as px
+from plotly import utils
+from json import dumps
 
 app = Flask(__name__)
 
@@ -11,7 +15,36 @@ DB_PATH = r"C:\Users\andyc\AppData\Local\Temp\pyquiz.db"
 # Define routes for each section
 @app.route('/end')
 def end():
-    return render_template('end.html')
+    data = {
+        "plotly_scores": get_scores_fig_json(),
+    }
+    return render_template('end.html', data=data)
+
+
+def get_scores_fig_json():
+    db_conn = get_database_connection(db_path=DB_PATH)
+    sql = """
+        WITH scores_summary AS (
+            SELECT 
+                t_id, 
+                SUM(answered_correct_flag) AS correct
+            FROM scores 
+            GROUP BY t_id
+        ),
+        join_with_teams AS (
+            SELECT t.team_name, s.correct
+            FROM scores_summary AS s
+            LEFT JOIN teams AS t
+                ON s.t_id=t.t_id
+        )
+        SELECT *
+        FROM join_with_teams
+    """
+    df_scores = pd.read_sql(sql=sql, con=db_conn)
+    fig_scores = px.bar(df_scores, x="team_name", y="correct")
+    fig_scores_json = dumps(fig_scores, cls=utils.PlotlyJSONEncoder)
+    return fig_scores_json
+
 
 @app.route('/')
 def index():
@@ -28,6 +61,7 @@ def index():
         "option_2_text": answers[1]['answer_text'],
         "option_3_text": answers[2]['answer_text'],
         "option_4_text": answers[3]['answer_text'],
+        "plotly_scores": get_scores_fig_json(),
     }
     return render_template('index.html', data=data)
 

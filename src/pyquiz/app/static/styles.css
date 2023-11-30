@@ -16,7 +16,23 @@ input[type=submit] {
 .content {
     margin: auto;
     width: 60%;
+    height: 40vh;
     border: 3px solid #73AD21;
     padding: 10px;
+}
+.quiz_form {
+    margin: auto;
+    width: 80%;
+}
+.scores {
+    margin: auto;
+    width: 60%;
+    height: 40vh;
+    border: 3px solid #73AD21;
+    padding: 10px;
+}
+.chart {
+    height: 95%;
+    width: 95%;
 }
 
