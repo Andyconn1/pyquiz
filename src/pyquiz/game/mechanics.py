@@ -24,7 +24,7 @@ def end_of_quiz(db_conn: sqlite3.Connection) -> bool:
         """).fetchone()[0]
     except:
         return True
-    return current_q_id <= max_q_id
+    return current_q_id > max_q_id
 
 
 def get_current_team_id(db_conn: sqlite3.Connection) -> int:
