@@ -96,14 +96,6 @@ def create_replace_table_scores(db_conn: sqlite3.Connection):
     db_conn.commit()
 
 
-    # df = pd.DataFrame({
-    #     "q_id": [],
-    #     "t_id": [],
-    #     "answered_correct_flag": [],
-    # })
-    # df.to_sql('scores', db_conn, if_exists="replace", index=False)
-
-
 def setup_db(db_conn: sqlite3.Connection):
     create_replace_table_teams(db_conn=db_conn)
     create_replace_table_users(db_conn=db_conn)
