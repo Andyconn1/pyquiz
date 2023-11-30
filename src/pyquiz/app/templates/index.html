@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Andy's quiz</title>
+</head>
+<body>
+
+    <div class="content">
+        <p>Question:</p>
+        <p>{{ data.question }}</p>
+        <p>{{ data.option_1 }}</p>
+        <p>{{ data.option_2 }}</p>
+        <p>{{ data.option_3 }}</p>
+        <p>{{ data.option_4 }}</p>
+    </div>
+</body>
+</html>

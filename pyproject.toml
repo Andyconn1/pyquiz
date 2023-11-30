@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=65", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyquiz"
+authors = [
+    {name = "Andy Conn"},
+    {email = "andyconn1988@googlemail.com"}
+]
+requires-python = ">=3.8"
+version = "0.0.1"
+dependencies = [
+    "pandas>=1.5.3",
+    "nbformat>=4.2.0",
+    "plotly>=5.18.0",
+]
